@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">MobileTestTask</string>
     <string name="movie_details">%1$s (%2$s)</string>
-    <string name="retry">Повторить</string>
+    <string name="retry_attempt">Повторить</string>
 </resources>

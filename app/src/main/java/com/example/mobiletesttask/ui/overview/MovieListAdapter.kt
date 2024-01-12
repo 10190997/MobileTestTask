@@ -2,9 +2,12 @@ package com.example.mobiletesttask.ui.overview
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.net.toUri
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
+import com.example.mobiletesttask.R
 import com.example.mobiletesttask.databinding.ListItemBinding
 import com.example.mobiletesttask.network.Movie
 
@@ -22,12 +25,20 @@ class MovieListAdapter : ListAdapter<Movie,
     }
 
     class MovieViewHolder(private var binding:
-                              ListItemBinding
+                          ListItemBinding
     ):
         RecyclerView.ViewHolder(binding.root) {
         fun bind(movie: Movie) {
-            binding.movie = movie
-            binding.executePendingBindings()
+            val imgUrl = movie.poster.previewUrl
+            imgUrl.let {
+                val uri = imgUrl.toUri().buildUpon().scheme("https").build()
+                binding.previewImage.load(uri){
+                    placeholder(R.drawable.loading_animation)
+                    error(R.drawable.ic_broken_image)
+                }
+            }
+            binding.tvDetails.text = binding.root.resources.getString(R.string.movie_details, movie.genres[0], movie.year.toString())
+            binding.tvTitle.text = movie.name
         }
     }
 
