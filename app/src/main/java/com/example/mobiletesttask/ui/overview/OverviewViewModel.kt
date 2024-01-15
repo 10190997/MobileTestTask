@@ -3,6 +3,7 @@ package com.example.mobiletesttask.ui.overview
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import com.example.mobiletesttask.network.KinopoiskApi
 import com.example.mobiletesttask.network.Movie
@@ -25,6 +26,12 @@ class OverviewViewModel : ViewModel() {
                 _movies.value = listOf()
                 _status.value = ApiStatus.ERROR
             }
+        }
+    }
+
+    fun getMovie(id: Int): LiveData<Movie> {
+        return liveData {
+            emit(KinopoiskApi.retrofitService.getMovieById(id))
         }
     }
 }

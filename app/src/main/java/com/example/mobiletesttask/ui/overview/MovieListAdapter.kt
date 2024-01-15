@@ -11,7 +11,7 @@ import com.example.mobiletesttask.R
 import com.example.mobiletesttask.databinding.ListItemBinding
 import com.example.mobiletesttask.network.Movie
 
-class MovieListAdapter : ListAdapter<Movie,
+class MovieListAdapter(private val onItemClicked: (Movie) -> Unit) : ListAdapter<Movie,
         MovieListAdapter.MovieViewHolder>(DiffCallback) {
 
     companion object DiffCallback : DiffUtil.ItemCallback<Movie>() {
@@ -50,6 +50,9 @@ class MovieListAdapter : ListAdapter<Movie,
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         val movie = getItem(position)
+        holder.itemView.setOnClickListener {
+            onItemClicked(movie)
+        }
         holder.bind(movie)
     }
 }

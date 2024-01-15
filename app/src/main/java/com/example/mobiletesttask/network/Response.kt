@@ -1,6 +1,5 @@
 package com.example.mobiletesttask.network
 
-import com.google.gson.annotations.JsonAdapter
 import com.google.gson.annotations.SerializedName
 
 data class Response(

@@ -1,7 +1,6 @@
 package com.example.mobiletesttask.network
 
 import com.example.mobiletesttask.utils.Constants
-import kotlinx.coroutines.flow.Flow
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
@@ -21,7 +20,7 @@ interface KinopoiskApiService {
 
     @Headers("X-API-KEY: " + Constants.API_KEY)
     @GET("v1.4/movie/{id}")
-    fun getMovieById(
+    suspend fun getMovieById(
         @Path("id")
         id: Int
     ): Movie
