@@ -8,4 +8,12 @@ data class Movie(
     val description: String,
     val genres: List<Genre>,
     val year: Int
-)
+) {
+    fun anyContains(query: String?): Boolean {
+        return query.isNullOrBlank() ||
+                name.contains(query, true) ||
+                countries.any { it.name.contains(query, true) } ||
+                genres.any { it.name.contains(query, true) } ||
+                year.toString() == query
+    }
+}

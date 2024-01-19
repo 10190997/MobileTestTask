@@ -1,8 +1,9 @@
 <resources>
-    <string name="app_name">MobileTestTask</string>
+    <string name="app_name">Фильмы</string>
     <string name="movie_details">%1$s (%2$s)</string>
     <string name="retry_attempt">Повторить</string>
     <string name="genres">&lt;b>Жанры: &lt;/b>%1$s</string>
     <string name="countries">&lt;b>Страны: &lt;/b>%1$s</string>
     <string name="year">&lt;b>Год: &lt;/b>%1$s</string>
+    <string name="search">Поиск</string>
 </resources>

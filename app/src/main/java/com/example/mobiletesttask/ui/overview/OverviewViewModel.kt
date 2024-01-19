@@ -7,6 +7,7 @@ import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import com.example.mobiletesttask.network.KinopoiskApi
 import com.example.mobiletesttask.network.Movie
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 enum class ApiStatus { LOADING, ERROR, DONE }
@@ -16,15 +17,31 @@ class OverviewViewModel : ViewModel() {
     private val _status = MutableLiveData<ApiStatus>()
     val status: LiveData<ApiStatus> get() = _status
 
+    private lateinit var filteredList: List<Movie>
+
     fun getMoviesList() {
         viewModelScope.launch {
             _status.value = ApiStatus.LOADING
             try {
-                _movies.value = KinopoiskApi.retrofitService.getAllMovies().movies
+                val received = KinopoiskApi.retrofitService.getAllMovies().movies
+                _movies.value = received
                 _status.value = ApiStatus.DONE
+
+                filteredList = received
             } catch (e: Exception) {
                 _movies.value = listOf()
                 _status.value = ApiStatus.ERROR
+
+                filteredList = listOf()
+            }
+        }
+    }
+
+    fun filter(query: String?) {
+        viewModelScope.launch {
+            delay(500)
+            _movies.value = filteredList.filter {
+                it.anyContains(query)
             }
         }
     }
